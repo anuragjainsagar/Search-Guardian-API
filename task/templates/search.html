@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Page</title>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <script type="text/javascript">
+        // Submit post on submit
+        $(function() {
+            $('.searchBtn,.page-link').on('click', function(event){
+                event.preventDefault();
+                console.log("form submitted!")  // sanity check
+                search_param = $('#x').val();
+                page = $(this).text();
+                if (page == ''){ page=1 }
+                var dataString = 'name='+ search_param +'&page='+page ;
+                //alert (dataString);
+                $.ajax({
+                    type: "POST",
+                    url: "../searchpost/",
+                    data: dataString,
+                    success: function(data) {
+                       $('#resultjson').html(data);
+                      /*$('#message').html("<h2>Contact Form Submitted!</h2>")
+                      .append("<p>We will be in touch soon.</p>")
+                      .hide()
+                      .fadeIn(1500, function() {
+                        $('#message').append("<img id='checkmark' src='images/check.png' />");
+                      });
+                      */
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-8">
+		    <div class="input-group">
+                <form action="/create_post/" method="POST" id="post-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="search_param" value="all" id="search_param">
+                    <input type="text" class="form-control" id="x" name="x" placeholder="Search term...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default searchBtn" type="button" style="position:absolute;left:100%;"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </form>
+                <p id="resultjson"></p>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" href="#">6</a></li>
+                    <li class="page-item"><a class="page-link" href="#">7</a></li>
+                    <li class="page-item"><a class="page-link" href="#">8</a></li>
+                    <li class="page-item"><a class="page-link" href="#">9</a></li>
+                    <li class="page-item"><a class="page-link" href="#">10</a></li>
+                  </ul>
+                </nav>
+            </div>
+        </div>
+	</div>
+</div>
+
+</body>
+</html>

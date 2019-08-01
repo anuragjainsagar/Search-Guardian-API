@@ -16,9 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from task import views
-
+from django.urls import path, re_path, include
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^search-api/', views.search_keyword, name="search-api")
+    #url(r'^$',views.index),
+    #url(r'^search-api/', views.search_keyword, name="search-api"),
+    url(r'^searchform/', views.SearchView.as_view(), name="searchform"),
+    url(r'^searchpost/$', views.search_param, name="searchpost"),
+    #path('admin/', admin.site.urls),
+    re_path('api/(?P<version>(v1|v2))/', include('task.urls'))
     # url(r'^search-api/', views.SearchKeyword.as_view())
 ]

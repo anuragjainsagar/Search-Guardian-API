@@ -1,0 +1,30 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="btn bg-blue-ui white read">Total Pages - {{ data.response.pages  }}</div>
+<div class="btn bg-blue-ui white read">Total Post - {{ data.response.total  }}</div>
+<div class="container col-md-12">
+	 <div id="blog" class="row">
+         {% for o in data.response.results  %}
+                 <div class="col-md-12 blogShort">
+                     <h1><a href="{{ p.webUrl }}">{{ o.webTitle}}</a></h1>
+                     <!-- <img src="http://www.kaczmarek-photo.com/wp-content/uploads/2012/06/guinnes-150x150.jpg" alt="post img" class="pull-left img-responsive thumb margin10 img-thumbnail">
+                     <em>This snippet use
+                         <a href="http://bootsnipp.com/snippets/featured/sexy-sidebar-navigation" target="_blank">Sexy Sidebar Navigation</a>
+                     </em>-->
+                     <article>
+                         <p>{{ o.webTitle}}</p>
+                         <span class="badge">{{ o.webPublicationDate }}</span>
+                         <div class="pull-right">
+                             {% for i in o.tags  %}
+                             <span class="label label-default"><a href="{{ i.webUrl }}">{{ i.webTitle}}</a></span>
+                             {% endfor %}
+                         </div>
+                     </article>
+                 </div>
+         {% endfor %}
+               <div class="col-md-12 gap10"></div>
+
+             </div>
+</div>
